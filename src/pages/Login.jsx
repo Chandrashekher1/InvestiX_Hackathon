@@ -78,7 +78,7 @@ const Login = () => {
   return (
     <div className="flex flex-col  items-center min-h-screen bg-gray-100">
         <div>
-            <img src="../assets/investixlogo.png" alt="logo" className='w-40 border rounded-full border-gray-300 shadow-md my-4'  />
+            <img src="/investixlogo.png" alt="logo" className='w-40 border rounded-full border-gray-300 shadow-md my-4'  />
         </div>
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6">

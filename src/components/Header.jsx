@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <div className="flex justify-between shadow-md p-2 sticky top-0 bg-white z-50">
       <div className="mx-4  cursor-pointer" onClick={handleLogo}>
-        <img src="src/assets/investixlogo.png"  alt="logo"  className="w-16 h-16 object-contain"/>
+        <img src="/investixlogo.png"  alt="logo"  className="w-16 h-16 object-contain"/>
       </div>
 
       <div className="relative w-[400px] my-2" ref={searchRef}>
