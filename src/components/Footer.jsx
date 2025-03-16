@@ -72,7 +72,9 @@ const Footer = () => {
 
         <div className="text-center text-gray-500 mt-8">
         </div>
-
+      </div>
+      <div className="mx-36">
+        <p>© 2025 InvestiX.com. All rights reserved.</p>
       </div>
     </footer>
   );

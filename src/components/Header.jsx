@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import Navbar from "./Navbar";
 import Search from "./Search";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // Store input value
+  const [searchQuery, setSearchQuery] = useState(""); 
   const searchRef = useRef(null);
+  const navigate = useNavigate()
 
-  // Close dropdown when clicking outside
+  const handleLogo = () => {
+    navigate('/')
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -22,9 +27,8 @@ const Header = () => {
 
   return (
     <div className="flex justify-between shadow-md p-2 sticky top-0 bg-white z-50">
-      <div className="mx-4 font-bold text-lg">InvestiX</div>
+      <div className="mx-4 font-bold text-lg my-4 cursor-pointer" onClick={handleLogo}>InvestiX</div>
 
-      {/* Search Input Box */}
       <div className="relative w-[400px]" ref={searchRef}>
         <div 
           className="flex rounded-md py-3 border border-gray-300 bg-gray-50 cursor-pointer px-3"
