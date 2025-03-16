@@ -4,7 +4,7 @@ import axios from "axios";
 const Trending = () => {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const API_KEY = "cvbg3k9r01qob7uddot0cvbg3k9r01qob7uddotg---111";
+  const API_KEY = "cvbg3k9r01qob7uddot0cvbg3k9r01qob7uddotg";
 
   useEffect(() => {
     const fetchTrendingStocks = async () => {

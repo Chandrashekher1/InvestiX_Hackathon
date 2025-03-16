@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Sidebar from "../components/Sidebar";
 import Search from "../components/Search";
 
 const Home = () => {

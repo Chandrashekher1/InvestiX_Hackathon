@@ -27,9 +27,11 @@ const Header = () => {
 
   return (
     <div className="flex justify-between shadow-md p-2 sticky top-0 bg-white z-50">
-      <div className="mx-4 font-bold text-lg my-4 cursor-pointer" onClick={handleLogo}>InvestiX</div>
+      <div className="mx-4  cursor-pointer" onClick={handleLogo}>
+        <img src="src/assets/investixlogo.png"  alt="logo"  className="w-16 h-16 object-contain"/>
+      </div>
 
-      <div className="relative w-[400px]" ref={searchRef}>
+      <div className="relative w-[400px] my-2" ref={searchRef}>
         <div 
           className="flex rounded-md py-3 border border-gray-300 bg-gray-50 cursor-pointer px-3"
           onClick={() => setShowSearch(true)}
@@ -44,7 +46,7 @@ const Header = () => {
             placeholder="Company or Stock Symbol..."
             className="w-full outline-none font-semibold bg-transparent cursor-text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update search text
+            onChange={(e) => setSearchQuery(e.target.value)} 
           />
         </div>
 

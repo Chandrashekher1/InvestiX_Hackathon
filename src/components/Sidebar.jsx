@@ -19,15 +19,15 @@ const Sidebar = () => {
           </li>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
             <FaChartBar />
-            {isOpen && <Link to="/stocks" className="text-lg">Stocks</Link>}
+            {isOpen && <Link to="/stocks/" className="text-lg">Stocks</Link>}
           </li>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
             <FaNewspaper />
-            {isOpen && <Link to="/news" className="text-lg">News</Link>}
+            {isOpen && <Link to="/news/" className="text-lg">News</Link>}
           </li>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
             <img src="https://static-00.iconduck.com/assets.00/watchlist-icon-2048x1626-xp428ogc.png" alt="" className="w-6" />
-            {isOpen && <Link to="/trending" className="text-lg">Trending</Link>}
+            {isOpen && <Link to="/trending/" className="text-lg">Trending</Link>}
           </li>
         </ul>
       </nav>
