@@ -53,9 +53,9 @@ const Home = () => {
 
       <div className="flex flex-col flex-grow px-6">
         <div className="text-center mt-20">
-          <h1 className="font-bold text-4xl">Search for a stock to start your analysis</h1>
+          <h1 className="font-bold text-4xl">Discover and analyze stocks to make smarter investment decisions.</h1>
           <p className="text-lg mt-4 max-w-2xl mx-auto">
-            Accurate information on 100,000+ stocks and funds, including all the companies in the S&P500 index.
+            Accurate information on 100+ stocks and funds, including all the companies in the S&P500 index.
             See stock prices, news, financials, forecasts, charts, and more.
           </p>
         </div>
