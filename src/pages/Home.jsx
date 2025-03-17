@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Search from "../components/Search";
+import Dashboard from "./Dashboard";
 
 const Home = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -9,7 +10,7 @@ const Home = () => {
   const [losers, setLosers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_KEY = "cvbg3k9r01qob7uddot0cvbg3k9r01qob7uddotg"; 
+  // const API_KEY = "YOUR_ALPHAVANTAGE_API_KEY"; 
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,8 +49,6 @@ const Home = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* <Sidebar /> */}
-
       <div className="flex flex-col flex-grow px-6">
         <div className="text-center mt-20">
           <h1 className="font-bold text-4xl">Discover and analyze stocks to make smarter investment decisions.</h1>
@@ -85,11 +84,15 @@ const Home = () => {
           )}
         </div>
 
+          <div className="my-16">
+            <Dashboard gainers={gainers} losers={losers} />
+
+          </div>
         <div className="grid grid-cols-2 gap-6 mt-16">
           <div className="bg-white shadow-md p-4 rounded-lg">
             <h2 className="text-xl font-bold border-b pb-2 mb-4">Top Gainers</h2>
             {loading ? (
-              <p>Loading data...</p>
+              <p className="font-bold text-xl">Loading data...</p>
             ) : (
               <table className="w-full text-left border-collapse">
                 <thead>
@@ -115,7 +118,7 @@ const Home = () => {
           <div className="bg-white shadow-md p-4 rounded-lg">
             <h2 className="text-xl font-bold border-b pb-2 mb-4">Top Losers</h2>
             {loading ? (
-              <p>Loading data...</p>
+              <p className="text-xl font-bold">Loading data...</p>
             ) : (
               <table className="w-full text-left border-collapse">
                 <thead>
@@ -129,7 +132,6 @@ const Home = () => {
                   {losers.map((stock) => (
                     <tr key={stock.ticker} className="hover:bg-gray-50">
                       <td className="p-2 border text-blue-500">{stock.ticker}</td>
-                      {/* <td className="p-2 border">{stock.name}</td> */}
                       <td className="p-2 border">${stock.price}</td>
                       <td className="p-2 border text-red-500">{stock.change_percentage}</td>
                     </tr>
@@ -139,6 +141,7 @@ const Home = () => {
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
