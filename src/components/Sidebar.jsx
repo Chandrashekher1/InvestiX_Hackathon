@@ -17,10 +17,10 @@ const Sidebar = () => {
             <FaHome />
             {isOpen && <Link to="/" className="text-lg">Home</Link>}
           </li>
-          {/* <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
+          <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
             <FaChartBar />
             {isOpen && <Link to="/stocks/" className="text-lg">Stocks</Link>}
-          </li> */}
+          </li>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
             <FaNewspaper />
             {isOpen && <Link to="/news/" className="text-lg">News</Link>}
