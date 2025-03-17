@@ -10,7 +10,7 @@ const Home = () => {
   const [losers, setLosers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const API_KEY = "YOUR_ALPHAVANTAGE_API_KEY"; 
+  const API_KEY = "YOUR_ALPHAVANTAGE_API_KEY"; 
 
   useEffect(() => {
     const handleClickOutside = (event) => {

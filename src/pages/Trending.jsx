@@ -7,7 +7,7 @@ import {
 import { PieChart } from "@mui/x-charts/PieChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-// const API_KEY = "6452b5934cmsh543ea829395a94cp1dd5efjsnb845046f57da"
+const API_KEY = "6452b5934cmsh543ea829395a94cp1dd5efjsnb845046f57da"
 const API_HOST = "apidojo-yahoo-finance-v1.p.rapidapi.com";
 
 const TrendingStocks = () => {
