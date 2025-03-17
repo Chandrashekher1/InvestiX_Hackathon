@@ -1,0 +1,104 @@
+[
+  {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "price": "178.25",
+    "change": "+1.87%",
+    "marketCap": "2.8T",
+    "revenue": "394.3B",
+    "netIncome": "99.8B",
+    "peRatio": "29.1",
+    "dividend": "0.5%",
+    "chartData": [
+      { "time": "10 AM", "price": 175.50 },
+      { "time": "11 AM", "price": 176.75 },
+      { "time": "12 PM", "price": 177.80 },
+      { "time": "1 PM", "price": 178.25 }
+    ]
+  },
+  {
+    "symbol": "GOOGL",
+    "name": "Alphabet Inc.",
+    "price": "2825.50",
+    "change": "+2.10%",
+    "marketCap": "1.9T",
+    "revenue": "280.3B",
+    "netIncome": "76.5B",
+    "peRatio": "24.7",
+    "dividend": "0%",
+    "chartData": [
+      { "time": "10 AM", "price": 2790.00 },
+      { "time": "11 AM", "price": 2805.75 },
+      { "time": "12 PM", "price": 2815.25 },
+      { "time": "1 PM", "price": 2825.50 }
+    ]
+  },
+  {
+    "symbol": "AMZN",
+    "name": "Amazon.com Inc.",
+    "price": "3450.75",
+    "change": "+3.22%",
+    "marketCap": "1.6T",
+    "revenue": "469.8B",
+    "netIncome": "33.3B",
+    "peRatio": "58.3",
+    "dividend": "0%",
+    "chartData": [
+      { "time": "10 AM", "price": 3400.00 },
+      { "time": "11 AM", "price": 3425.50 },
+      { "time": "12 PM", "price": 3440.25 },
+      { "time": "1 PM", "price": 3450.75 }
+    ]
+  },
+  {
+    "symbol": "TSLA",
+    "name": "Tesla, Inc.",
+    "price": "950.30",
+    "change": "+4.75%",
+    "marketCap": "950B",
+    "revenue": "81.5B",
+    "netIncome": "11.9B",
+    "peRatio": "79.2",
+    "dividend": "0%",
+    "chartData": [
+      { "time": "10 AM", "price": 920.00 },
+      { "time": "11 AM", "price": 935.75 },
+      { "time": "12 PM", "price": 945.25 },
+      { "time": "1 PM", "price": 950.30 }
+    ]
+  },
+  {
+    "symbol": "META",
+    "name": "Meta Platforms, Inc.",
+    "price": "310.60",
+    "change": "+2.89%",
+    "marketCap": "860B",
+    "revenue": "117.9B",
+    "netIncome": "39.4B",
+    "peRatio": "23.5",
+    "dividend": "0%",
+    "chartData": [
+      { "time": "10 AM", "price": 300.50 },
+      { "time": "11 AM", "price": 305.75 },
+      { "time": "12 PM", "price": 308.40 },
+      { "time": "1 PM", "price": 310.60 }
+    ]
+  },
+  {
+    "symbol": "MSFT",
+    "name": "Microsoft Corporation",
+    "price": "332.80",
+    "change": "+1.94%",
+    "marketCap": "2.6T",
+    "revenue": "211.9B",
+    "netIncome": "72.7B",
+    "peRatio": "35.6",
+    "dividend": "0.9%",
+    "chartData": [
+      { "time": "10 AM", "price": 325.50 },
+      { "time": "11 AM", "price": 328.75 },
+      { "time": "12 PM", "price": 331.25 },
+      { "time": "1 PM", "price": 332.80 }
+    ]
+  }
+]
