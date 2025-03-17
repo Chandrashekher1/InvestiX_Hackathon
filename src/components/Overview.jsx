@@ -11,25 +11,7 @@ const Overview = ({ company }) => {
           <span className="text-gray-600">{company.marketCap}</span>
         </div>
 
-        <div className="flex justify-between items-center text-lg">
-          <span className="font-semibold">Revenue:</span>
-          <span className="text-gray-600">{company.revenue}</span>
-        </div>
-
-        <div className="flex justify-between items-center text-lg">
-          <span className="font-semibold">Net Income:</span>
-          <span className="text-gray-600">{company.netIncome}</span>
-        </div>
-
-        <div className="flex justify-between items-center text-lg">
-          <span className="font-semibold">PE Ratio:</span>
-          <span className="text-gray-600">{company.peRatio}</span>
-        </div>
-
-        <div className="flex justify-between items-center text-lg">
-          <span className="font-semibold">Dividend Yield:</span>
-          <span className="text-gray-600">{company.dividend}</span>
-        </div>
+        
       </div>
     </div>
   );
