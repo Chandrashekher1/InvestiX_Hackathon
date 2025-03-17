@@ -21,7 +21,7 @@ const News = () => {
     fetchNews();
   }, []);
 
-  if (loading) return <div className="text-center text-gray-500">Loading news...</div>;
+  if (loading) return <div className="text-center text-2xl font-bold">Loading news...</div>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
@@ -29,11 +29,10 @@ const News = () => {
 
       <div className="flex space-x-6 border-b pb-2 mb-4">
         <button className="font-semibold border-b-2 border-black">Markets</button>
-        <button className="text-gray-500">All Stocks</button>
-        <button className="text-gray-500">Press Releases</button>
+        
       </div>
 
-      {news.slice(0, 100).map((article, index) => (
+      {news.slice(0, 20).map((article, index) => (
         <div key={index} className="flex items-start space-x-4 mb-6 border-b pb-4">
           {article.urlToImage && (
             <img src={article.urlToImage} alt="news" className="w-40 h-28 object-cover rounded-md" />
@@ -46,7 +45,7 @@ const News = () => {
                 {article.title}
               </a>
             </h3>
-            <p className="text-gray-600">{article.description ? article.description.slice(0, 120) + "..." : ""}</p>
+            <p className="text-gray-600">{article.description ? article.description.slice(0, 20) + "..." : ""}</p>
           </div>
         </div>
       ))}
