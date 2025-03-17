@@ -1,26 +1,49 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  Box, Typography, Paper, Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, CircularProgress
+} from "@mui/material";
+import { PieChart } from "@mui/x-charts/PieChart";
+import { LineChart } from "@mui/x-charts/LineChart";
+
+// const API_KEY = "6452b5934cmsh543ea829395a94cp1dd5efjsnb845046f57da"
+const API_HOST = "apidojo-yahoo-finance-v1.p.rapidapi.com";
 
 const TrendingStocks = () => {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const API_KEY = "cvbg3k9r01qob7uddot0cvbg3k9r01qob7uddotg"
 
   useEffect(() => {
     const fetchTrendingStocks = async () => {
       try {
-        const response = await axios.get(
-          `https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${API_KEY}`
+        // 1️⃣ Fetch trending stocks
+        const trendingResponse = await axios.get(
+          `https://${API_HOST}/market/get-trending-tickers?region=US`,
+          { headers: { "X-RapidAPI-Key": API_KEY, "X-RapidAPI-Host": API_HOST } }
         );
 
-        if (response.data) {
-          setStocks(response.data.slice(0, 20));
-        }
+        let stockList = trendingResponse.data.finance.result[0].quotes.slice(0, 5); // Top 5 Stocks
 
-        console.log(response);
-        
+        // 2️⃣ Fetch detailed stock data (Market Cap, Volume, % Change)
+        const symbols = stockList.map(stock => stock.symbol).join(",");
+        const quotesResponse = await axios.get(
+          `https://${API_HOST}/market/v2/get-quotes?region=US&symbols=${symbols}`,
+          { headers: { "X-RapidAPI-Key": API_KEY, "X-RapidAPI-Host": API_HOST } }
+        );
+
+        // 3️⃣ Process stock data
+        const detailedStocks = quotesResponse.data.quoteResponse.result.map(stock => ({
+          symbol: stock.symbol,
+          name: stock.shortName || stock.longName || "N/A",
+          marketCap: stock.marketCap ? (stock.marketCap / 1e9).toFixed(2) : 1, // Convert to Billion
+          volume: stock.regularMarketVolume || 1, // Ensure non-zero values
+          changePercent: parseFloat(stock.regularMarketChangePercent).toFixed(2) || 0
+        }));
+
+        setStocks(detailedStocks);
       } catch (error) {
-        console.error("Error fetching trending stocks:", error);
+        console.error("Error fetching Yahoo Finance Data:", error);
       } finally {
         setLoading(false);
       }
@@ -29,48 +52,107 @@ const TrendingStocks = () => {
     fetchTrendingStocks();
   }, []);
 
-  if (loading) return <div className="text-center text-gray-500">Loading trending stocks...</div>;
+  if (loading) return <CircularProgress sx={{ display: "block", mx: "auto", my: 4 }} />;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6">
-      <h2 className="text-3xl font-bold mb-4">Trending Today</h2>
+    <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Trending Stocks
+      </Typography>
 
-      {/* Table Container */}
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table className="min-w-full border-collapse border border-gray-300">
-          {/* Table Header */}
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-3 text-left">No.</th>
-              <th className="border p-3 text-left">Symbol</th>
-              <th className="border p-3 text-left">Company Name</th>
-              <th className="border p-3 text-left">Market Cap</th>
-              <th className="border p-3 text-left">Volume</th>
-              <th className="border p-3 text-left">% Change</th>
-            </tr>
-          </thead>
-
-          <tbody>
+      <TableContainer component={Paper} sx={{ mb: 4 }}>
+        <Table>
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+              <TableCell>#</TableCell>
+              <TableCell>Symbol</TableCell>
+              <TableCell>Company Name</TableCell>
+              <TableCell>Market Cap (B)</TableCell>
+              <TableCell>Volume</TableCell>
+              <TableCell>% Change</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {stocks.map((stock, index) => (
-              <tr key={stock.symbol} className="text-left border-b hover:bg-gray-50">
-                <td className="border p-3">{index + 1}</td>
-                <td className="border p-3 text-blue-500 font-semibold">
-                  <a href={`https://www.google.com/search?q=${stock.symbol}`} target="_blank" rel="noopener noreferrer">
+              <TableRow key={stock.symbol} hover>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>
+                  <a href={`https://finance.yahoo.com/quote/${stock.symbol}`} target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "none" }}>
                     {stock.symbol}
                   </a>
-                </td>
-                <td className="border p-3">{stock.description || "N/A"}</td>
-                <td className="border p-3">{stock.market_cap || "N/A"}</td>
-                <td className="border p-3">{stock.volume || "N/A"}</td>
-                <td className={`border p-3 font-bold ${stock.change_percent > 0 ? "text-green-600" : "text-red-600"}`}>
-                  {stock.change_percent ? `${stock.change_percent}%` : "N/A"}
-                </td>
-              </tr>
+                </TableCell>
+                <TableCell>{stock.name}</TableCell>
+                <TableCell>{stock.marketCap} B</TableCell>
+                <TableCell>{stock.volume.toLocaleString()}</TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: stock.changePercent < 0 ? "red" : "green" }}>
+                  {stock.changePercent}%
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 4 }}>
+        <Paper sx={{ width: "45%", p: 3 }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            Market Cap Distribution
+          </Typography>
+          <PieChart
+            colors={["blue", "green", "red", "purple", "orange"]}
+            series={[{ data: stocks.map(stock => ({ value: stock.marketCap, label: stock.symbol })) }]}
+            width={400}
+            height={300}
+          />
+        </Paper>
+
+        <Paper sx={{ width: "45%", p: 3 }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            Volume Distribution
+          </Typography>
+          <PieChart
+            colors={["cyan", "magenta", "yellow", "lime", "teal"]}
+            series={[{ data: stocks.map(stock => ({ value: stock.volume, label: stock.symbol })) }]}
+            width={400}
+            height={300}
+          />
+        </Paper>
+      </Box>
+
+      <Paper sx={{ mt: 4, p: 3 }}>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          Market Change Over Time
+        </Typography>
+
+        {stocks.length > 0 && stocks.some(stock => stock.changePercent !== null) ? (
+          <LineChart
+            xAxis={[
+              { 
+                data: stocks.map(stock => stock.symbol),
+                label: "Stock Symbols",  
+                tickAngle: -45 
+              }
+            ]}
+            series={[
+              {
+                data: stocks.map(stock => parseFloat(stock.changePercent) || 0),
+                label: "% Change",
+                color: "blue",
+                showMark: true,  
+                strokeWidth: 3,  
+                curve: "linear"  
+              }
+            ]}
+            width={900}
+            height={400}
+          />
+        ) : (
+          <Typography variant="body1" color="error">
+            No valid % Change data available
+          </Typography>
+        )}
+      </Paper>
+    </Box>
   );
 };
 
