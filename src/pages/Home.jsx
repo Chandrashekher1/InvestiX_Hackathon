@@ -82,7 +82,7 @@ const Home = () => {
                 <tr className="bg-gray-100 p-2">
                   <th className="p-2 ">Symbol</th>
                   <th className="p-2">Price</th>
-                  <th className="p-2">%Change</th>
+                  <th className="p-2">Change%</th>
                 </tr>
               </thead>
               <tbody>
