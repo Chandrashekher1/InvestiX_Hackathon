@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaChartBar, FaNewspaper, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaChartBar, FaNewspaper, FaBars, FaTimes, FaBuilding } from "react-icons/fa";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -30,7 +30,8 @@ const Sidebar = () => {
             {isOpen && <Link to="/trending/" className="text-lg">Trending</Link>}
           </li>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYukNB3WKs9JAar0Q--6vvD6UsY2ot5gO3FT66gC2pxdZPovdtltyr5nPrdplOjisPkvc&usqp=CAU" alt="" className="w-6" />
+            {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYukNB3WKs9JAar0Q--6vvD6UsY2ot5gO3FT66gC2pxdZPovdtltyr5nPrdplOjisPkvc&usqp=CAU" alt="" className="w-6" /> */}
+            <FaBuilding/>
             {isOpen && <Link to="/real-estate/" className="text-lg">Real Estate</Link>}
             <img src="" alt="" />
           </li>
