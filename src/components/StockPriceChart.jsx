@@ -5,17 +5,15 @@ const StockPriceChart = () => {
   const [combinedData, setCombinedData] = useState([]);
 
   useEffect(() => {
-    // Fetch actual & predicted data separately
     Promise.all([
       fetch("/Actual.json").then(response => response.json()),
       fetch("/Prediction.json").then(response => response.json())
     ])
       .then(([actualData, predictedData]) => {
-        // Merge by Date
         const mergedData = actualData.map((item, index) => ({
           Date: item.Date,
           actualPrice: item.Price,
-          predictedPrice: predictedData[index]?.Price || null, // Use null if missing
+          predictedPrice: predictedData[index]?.Price || null, 
         }));
 
         setCombinedData(mergedData);
@@ -43,13 +41,13 @@ const StockPriceChart = () => {
           {
             data: combinedData.map(item => item.actualPrice),
             label: "Actual Price ($)",
-            color: "#FF0000", // Red Line for Actual Data
+            color: "#FF0000", 
             showMark: false,
           },
           {
             data: combinedData.map(item => item.predictedPrice),
             label: "Predicted Price ($)",
-            color: "#007bff", // Blue Line for Predicted Data
+            color: "#007bff", 
             showMark: false,
           }
         ]}
