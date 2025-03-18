@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import StockPriceChart from "../components/StockPriceChart";
 
 // JSON Data
 const stocks = [
@@ -83,12 +84,17 @@ const stocks = [
 
 const Stocks = () => {
   return (
+    <>
+      <div>
+      <StockPriceChart/>
+
+    </div>
+
     <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Stock Market Overview
       </Typography>
 
-      {/* Stock Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -135,6 +141,9 @@ const Stocks = () => {
         </Table>
       </TableContainer>
     </Box>
+    </>
+    
+
   );
 };
 
