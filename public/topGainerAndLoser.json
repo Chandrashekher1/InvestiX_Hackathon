@@ -1,0 +1,27 @@
+{
+    "top_gainers": [
+      { "symbol": "ULY", "name": "Urgent.ly", "price": 3.59, "change": 1132.57 },
+      { "symbol": "NAYA", "name": "NAYA Biosciences", "price": 2.36, "change": 1011.42 },
+      { "symbol": "WKSP", "name": "Worksport", "price": 3.48, "change": 851.04 },
+      { "symbol": "ANTE", "name": "AirNet Technology", "price": 1.61, "change": 97.93 },
+      { "symbol": "SCNX", "name": "Scienture Holdings", "price": 2.48, "change": 66.44 },
+      { "symbol": "MGRM", "name": "Monogram Technologies", "price": 3.67, "change": 57.51 },
+      { "symbol": "ARQQ", "name": "Arqit Quantum", "price": 23.54, "change": 56.93 },
+      { "symbol": "NAOV", "name": "NanoVibronix", "price": 3.43, "change": 55.49 },
+      { "symbol": "VTVT", "name": "vTv Therapeutics", "price": 22.74, "change": 53.13 },
+      { "symbol": "SES", "name": "SES AI", "price": 0.66, "change": 49.57 }
+    ],
+    "top_losers": [
+      { "symbol": "TDAC", "name": "Translational Development Acqui...", "price": 0.93, "change": -90.71 },
+      { "symbol": "BON", "name": "Bon Natural Life", "price": 0.61, "change": -57.46 },
+      { "symbol": "SBEV", "name": "Splash Beverage Group", "price": 0.07, "change": -42.67 },
+      { "symbol": "NWTG", "name": "Newton Golf Company", "price": 1.98, "change": -34.00 },
+      { "symbol": "LYT", "name": "Lytus Technologies Holdings PTV.", "price": 0.08, "change": -24.66 },
+      { "symbol": "STBX", "name": "Starbox Group Holdings", "price": 0.20, "change": -23.85 },
+      { "symbol": "USAR", "name": "USA Rare Earth", "price": 14.13, "change": -23.83 },
+      { "symbol": "COEP", "name": "Coeptis Therapeutics Holdings", "price": 8.50, "change": -23.15 },
+      { "symbol": "HMR", "name": "Heidmar Maritime Holdings", "price": 2.70, "change": -21.74 },
+      { "symbol": "WKHS", "name": "Workhorse Group", "price": 2.04, "change": -21.61 }
+    ]
+  }
+  
