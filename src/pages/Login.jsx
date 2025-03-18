@@ -80,7 +80,7 @@ const Login = () => {
         <div>
             <img src="/investixlogo.png" alt="logo" className='w-40 border rounded-full border-gray-300 shadow-md my-4'  />
         </div>
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+      <div className="bg-white shadow-2xl my-8 rounded-lg p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6">
           {isSignUp ? "Sign Up" : "Sign In"}
         </h1>
@@ -123,7 +123,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition duration-300"
+            className="w-full bg-blue-600 text-white py-2 cursor-pointer rounded-md font-semibold hover:bg-blue-700 transition duration-300"
           >
             {isSignUp ? "Sign Up" : "Log In"}
           </button>
