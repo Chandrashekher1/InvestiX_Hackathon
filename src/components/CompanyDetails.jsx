@@ -5,8 +5,9 @@ import axios from "axios";
 import History from "./History";
 // import Profile from "./Profile";
 import Chart from "./Chart";
+import StockPriceChart from "./StockPriceChart";
 
-const API_KEY = "6452b5934cmsh543ea829395a94cp1dd5efjsnb845046f57da"; // Replace with your API Key
+const API_KEY = "6452b5934cmsh543ea829395a94cp1dd5efjsnb845046f57da";
 const API_HOST = "apidojo-yahoo-finance-v1.p.rapidapi.com";
 
 const CompanyDetails = () => {
@@ -14,6 +15,9 @@ const CompanyDetails = () => {
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState("overview");
+
+  console.log(symbol);
+  
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -24,7 +28,7 @@ const CompanyDetails = () => {
         );
         
         const stockData = response.data.quoteResponse.result[0];
-        console.log(stockData);
+        // console.log(stockData);
         
         if (stockData) {
           setCompany({
@@ -51,7 +55,7 @@ const CompanyDetails = () => {
   }, [symbol]);
 
   if (loading) return <div className="text-2xl font-bold text-center">Loading...</div>;
-  if (!company) return <div className="text-2xl font-bold text-center text-red-600">Company not found</div>;
+  if (!company) return <div className="text-2xl font-semibold text-center text-red-400">Company not found</div>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
@@ -63,7 +67,7 @@ const CompanyDetails = () => {
       <p className="text-gray-900 my-4">Market Cap: {company.marketCap}</p>
 
       <div className="flex space-x-6 mt-4 border-b cursor-pointer my-2 text-xl font-semibold">
-        <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("overview")}>
+        {/* <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("overview")}>
           Overview
         </button>
         <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("history")}>
@@ -71,9 +75,9 @@ const CompanyDetails = () => {
         </button>
         <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("profile")}>
           Profile
-        </button>
-        <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("chart")}>
-          Chart
+        </button> */}
+        <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("prediction")}>
+          Prediction
         </button>
       </div>
 
@@ -81,6 +85,7 @@ const CompanyDetails = () => {
         {selectedTab === "history" && <History />}
         {selectedTab === "profile" && <Profile company={company} />}
         {selectedTab === "chart" && <Chart symbol={company.symbol} />}
+        {selectedTab === "prediction" && <StockPriceChart />}
       </div>
     </div>
   );
