@@ -8,9 +8,6 @@ const Home = () => {
   const searchRef = useRef(null);
   const [gainers, setGainers] = useState([]);
   const [losers, setLosers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const API_KEY = "CHZD6REMQOUN5JWK"; 
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -25,33 +22,22 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const fetchStockData = async () => {
-      try {
-        const response = await fetch(
-          `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${API_KEY}`
-        );
-        const data = await response.json();
-        console.log("API Response:", data);
-
-        if (data.top_gainers && data.top_losers) {
-          setGainers(data.top_gainers.slice(0, 10)); 
-          setLosers(data.top_losers.slice(0, 10)); 
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching stock data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchStockData();
+    fetch("/topGainerAndLoser.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setGainers(data.top_gainers);
+        setLosers(data.top_losers);
+      })
+      .catch((error) => console.error("Error fetching JSON data:", error));
   }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex flex-col flex-grow px-6">
         <div className="text-center mt-20">
-          <h1 className="font-bold text-4xl">Discover and analyze stocks to make smarter investment decisions.</h1>
+          <h1 className="font-bold text-4xl">
+            Discover and analyze stocks to make smarter investment decisions.
+          </h1>
           <p className="text-lg mt-4 max-w-2xl mx-auto">
             Accurate information on 100+ stocks and funds, including all the companies in the S&P500 index.
             See stock prices, news, financials, forecasts, charts, and more.
@@ -84,64 +70,55 @@ const Home = () => {
           )}
         </div>
 
-          <div className="my-16">
-            <Dashboard gainers={gainers} losers={losers} />
+        <div className="my-16">
+          <Dashboard gainers={gainers} losers={losers} />
+        </div>
 
-          </div>
-        <div className="grid grid-cols-2 gap-6 mt-16">
-          <div className="bg-white shadow-md p-4 rounded-lg">
-            <h2 className="text-xl font-bold border-b pb-2 mb-4">Top Gainers</h2>
-            {loading ? (
-              <p className="font-bold text-xl">Loading data...</p>
-            ) : (
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="p-2 border">Symbol</th>
-                    <th className="p-2 border">Price</th>
-                    <th className="p-2 border">Change</th>
+        <div className="grid grid-cols-2 gap-6 mt-16 shadow-md">
+          <div className="bg-white shadow-lg p-4 rounded-lg">
+            <h2 className="text-xl font-bold border-b pb-2 mb-4 text-green-500">Top Gainers</h2>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-100 p-2">
+                  <th className="p-2 ">Symbol</th>
+                  <th className="p-2">Price</th>
+                  <th className="p-2">%Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gainers.map((stock) => (
+                  <tr key={stock.symbol} className="hover:bg-gray-50 ">
+                    <td className="p-4 font-semibold text-blue-500 ">{stock.symbol}</td>
+                    <td className="p-2 font-semibold ">${stock.price}</td>
+                    <td className="p-2 text-green-500 font-semibold">{stock.change}%</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {gainers.map((stock) => (
-                    <tr key={stock.ticker} className="hover:bg-gray-50">
-                      <td className="p-2 border text-blue-500">{stock.ticker}</td>
-                      <td className="p-2 border">${stock.price}</td>
-                      <td className="p-2 border text-green-500">{stock.change_percentage}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                ))}
+              </tbody>
+            </table>
           </div>
 
           <div className="bg-white shadow-md p-4 rounded-lg">
             <h2 className="text-xl font-bold border-b pb-2 mb-4">Top Losers</h2>
-            {loading ? (
-              <p className="text-xl font-bold">Loading data...</p>
-            ) : (
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="p-2 border">Symbol</th>
-                    <th className="p-2 border">Price</th>
-                    <th className="p-2 border">Change</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {losers.map((stock) => (
-                    <tr key={stock.ticker} className="hover:bg-gray-50">
-                      <td className="p-2 border text-blue-500">{stock.ticker}</td>
-                      <td className="p-2 border">${stock.price}</td>
-                      <td className="p-2 border text-red-500">{stock.change_percentage}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="p-2">Symbol</th>
+                  <th className="p-2 ">Price</th>
+                  <th className="p-2 ">Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                {losers.map((stock) => (
+                  <tr key={stock.symbol} className="hover:bg-gray-50 ">
+                    <td className="p-4 font-semibold text-blue-500 ">{stock.symbol}</td>
+                    <td className="p-2 font-semibold ">${stock.price}</td>
+                    <td className="p-2 text-red-500 font-semibold">{stock.change}%</td>
+                </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-
       </div>
     </div>
   );
