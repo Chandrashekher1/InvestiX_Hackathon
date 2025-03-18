@@ -85,11 +85,7 @@ const stocks = [
 const Stocks = () => {
   return (
     <>
-      <div>
-      <StockPriceChart/>
-
-    </div>
-
+    
     <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Stock Market Overview

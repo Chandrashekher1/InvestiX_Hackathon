@@ -13,6 +13,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import TermAndUse from "./pages/TermAndUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RealEstate from "./pages/RealEstate";
+import StockPriceChart from "./components/StockPriceChart";
 
 const App = () => {
   return (
@@ -31,7 +33,9 @@ const App = () => {
           <Route path="/contact/" element={<Contact />} />
           <Route path="/term-use/" element={<TermAndUse />} />
           <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
-
+          <Route path="/real-estate/" element={<RealEstate />} />
+          <Route path="/stock-prediction/" element={<StockPriceChart />} />
+          
 
         </Route>
       </Routes>
