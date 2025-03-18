@@ -4,7 +4,7 @@ import axios from "axios";
 const News = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const API_KEY = "81758a94e90f46a6b3f7e968bc107620";
+  // const API_KEY = "81758a94e90f46a6b3f7e968bc107620";
 
   useEffect(() => {
     const fetchNews = async () => {
