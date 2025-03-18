@@ -18,7 +18,6 @@ const CompanyDetails = () => {
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        // Fetch stock details from Yahoo Finance API
         const response = await axios.get(
           `https://${API_HOST}/market/v2/get-quotes?region=US&symbols=${symbol}`,
           { headers: { "X-RapidAPI-Key": API_KEY, "X-RapidAPI-Host": API_HOST } }
@@ -36,7 +35,7 @@ const CompanyDetails = () => {
             marketCap: stockData.marketCap ? (stockData.marketCap / 1e9).toFixed(2) + " B" : "N/A",
             volume: stockData.regularMarketVolume?.toLocaleString() || "N/A",
             
-            chartData: [], // Placeholder for chart data
+            chartData: [], 
           });
         } else {
           setCompany(null);
@@ -63,7 +62,6 @@ const CompanyDetails = () => {
       </p>
       <p className="text-gray-900 my-4">Market Cap: {company.marketCap}</p>
 
-      {/* Navigation Tabs */}
       <div className="flex space-x-6 mt-4 border-b cursor-pointer my-2 text-xl font-semibold">
         <button className="cursor-pointer hover:text-blue-500" onClick={() => setSelectedTab("overview")}>
           Overview
@@ -79,7 +77,6 @@ const CompanyDetails = () => {
         </button>
       </div>
 
-      {/* Dynamic Content Based on Selected Tab */}
       <div className="mt-6">
         {selectedTab === "history" && <History />}
         {selectedTab === "profile" && <Profile company={company} />}
