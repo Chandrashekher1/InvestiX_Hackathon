@@ -1,19 +1,20 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
+import { BarChart } from "@mui/x-charts/BarChart";
 
 const Dashboard = ({ gainers, losers }) => {
   if (gainers.length === 0 || losers.length === 0)
     return <p className="text-xl font-bold text-center">Loading data...</p>;
+
+  const gainersData = gainers.slice(0, 5).map((stock) => ({
+    name: stock.ticker,
+    change: parseFloat(stock.change_percentage.replace("%", "")),
+  }));
+
+  const losersData = losers.slice(0, 5).map((stock) => ({
+    name: stock.ticker,
+    change: parseFloat(stock.change_percentage.replace("%", "")),
+  }));
 
   return (
     <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
@@ -22,86 +23,41 @@ const Dashboard = ({ gainers, losers }) => {
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", gap: 4, flexWrap: "wrap" }}>
-        
         <Paper sx={{ width: "48%", p: 3 }}>
           <Typography variant="h6" fontWeight="bold" sx={{ color: "rgb(85,205,49)", mb: 2 }}>
             Top Gainers
           </Typography>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                  <TableCell>#</TableCell>
-                  <TableCell>Symbol</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>% Change</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {gainers.slice(0, 5).map((stock, index) => (
-                  <TableRow key={stock.ticker} hover>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>
-                      <a
-                        href={`https://finance.yahoo.com/quote/${stock.ticker}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "#1976d2", textDecoration: "none" }}
-                      >
-                        {stock.ticker}
-                      </a>
-                    </TableCell>
-                    <TableCell>${stock.price}</TableCell>
-                    <TableCell sx={{ fontWeight: "bold", color: "rgb(85,205,49)" }}>
-                      {stock.change_percentage}%
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <BarChart
+            width={400}
+            height={300}
+            series={[
+              {
+                data: gainersData.map(stock => stock.change),
+                label: "Top Gainers",
+                color: "rgb(85,205,49)", 
+              },
+            ]}
+            xAxis={[{ scaleType: "band", data: gainersData.map(stock => stock.name) }]}
+          />
         </Paper>
 
-        {/* Top Losers Table */}
         <Paper sx={{ width: "48%", p: 3 }}>
           <Typography variant="h6" fontWeight="bold" sx={{ color: "rgb(177,39,29)", mb: 2 }}>
             Top Losers
           </Typography>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                  <TableCell>#</TableCell>
-                  <TableCell>Symbol</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>% Change</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {losers.slice(0, 5).map((stock, index) => (
-                  <TableRow key={stock.ticker} hover>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>
-                      <a
-                        href={`https://finance.yahoo.com/quote/${stock.ticker}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "#1976d2", textDecoration: "none" }}
-                      >
-                        {stock.ticker}
-                      </a>
-                    </TableCell>
-                    <TableCell>${stock.price}</TableCell>
-                    <TableCell sx={{ fontWeight: "bold", color: "rgb(177,39,29)" }}>
-                      {stock.change_percentage}%
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <BarChart
+            width={400}
+            height={300}
+            series={[
+              {
+                data: losersData.map(stock => stock.change),
+                label: "Top Losers",
+                color: "rgb(177,39,29)", 
+              },
+            ]}
+            xAxis={[{ scaleType: "band", data: losersData.map(stock => stock.name) }]}
+          />
         </Paper>
-
       </Box>
     </Box>
   );
