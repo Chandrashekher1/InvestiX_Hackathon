@@ -1,56 +1,109 @@
 import React from "react";
-import { BarChart } from "@mui/x-charts/BarChart";
+import {
+  Box,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 const Dashboard = ({ gainers, losers }) => {
   if (gainers.length === 0 || losers.length === 0)
-    return <p className="text-xl font-bold text-center">Loading chart...</p>;
-
-  const gainersData = gainers.slice(0, 10).map(stock => ({
-    name: stock.ticker,
-    change: parseFloat(stock.change_percentage.replace("%", "")),
-  }));
-
-  const losersData = losers.slice(0, 10).map(stock => ({
-    name: stock.ticker,
-    change: parseFloat(stock.change_percentage.replace("%", "")),
-  }));
+    return <p className="text-xl font-bold text-center">Loading data...</p>;
 
   return (
-    <div className="bg-white shadow-md p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-center mb-4">Market Trends</h2>
+    <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom textAlign="center">
+        Market Trends
+      </Typography>
 
-      <div className="mb-8">
-        <h3 className="text-2xl font-bold text-green-600 mb-2">Top Gainers</h3>
-        <BarChart
-          width={700}
-          height={300}
-          series={[
-            {
-              data: gainersData.map(stock => stock.change),
-              label: "Top Gainers",
-              color: "green",
-            },
-          ]}
-          xAxis={[{ scaleType: "band", data: gainersData.map(stock => stock.name) }]}
-        />
-      </div>
+      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 4, flexWrap: "wrap" }}>
+        
+        <Paper sx={{ width: "48%", p: 3 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ color: "rgb(85,205,49)", mb: 2 }}>
+            Top Gainers
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                  <TableCell>#</TableCell>
+                  <TableCell>Symbol</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>% Change</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {gainers.slice(0, 5).map((stock, index) => (
+                  <TableRow key={stock.ticker} hover>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>
+                      <a
+                        href={`https://finance.yahoo.com/quote/${stock.ticker}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#1976d2", textDecoration: "none" }}
+                      >
+                        {stock.ticker}
+                      </a>
+                    </TableCell>
+                    <TableCell>${stock.price}</TableCell>
+                    <TableCell sx={{ fontWeight: "bold", color: "rgb(85,205,49)" }}>
+                      {stock.change_percentage}%
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
 
-      <div>
-        <h3 className="text-2xl font-bold text-red-600 mb-2">Top Losers</h3>
-        <BarChart
-          width={700}
-          height={300}
-          series={[
-            {
-              data: losersData.map(stock => stock.change),
-              label: "Top Losers",
-              color: "red",
-            },
-          ]}
-          xAxis={[{ scaleType: "band", data: losersData.map(stock => stock.name) }]}
-        />
-      </div>
-    </div>
+        {/* Top Losers Table */}
+        <Paper sx={{ width: "48%", p: 3 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ color: "rgb(177,39,29)", mb: 2 }}>
+            Top Losers
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                  <TableCell>#</TableCell>
+                  <TableCell>Symbol</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>% Change</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {losers.slice(0, 5).map((stock, index) => (
+                  <TableRow key={stock.ticker} hover>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>
+                      <a
+                        href={`https://finance.yahoo.com/quote/${stock.ticker}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#1976d2", textDecoration: "none" }}
+                      >
+                        {stock.ticker}
+                      </a>
+                    </TableCell>
+                    <TableCell>${stock.price}</TableCell>
+                    <TableCell sx={{ fontWeight: "bold", color: "rgb(177,39,29)" }}>
+                      {stock.change_percentage}%
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+
+      </Box>
+    </Box>
   );
 };
 
