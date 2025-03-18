@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Paper } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 
-const Dashboard = ({ gainers, losers }) => {
+const Dashboard = () => {
+  const [gainers, setGainers] = useState([]);
+  const [losers, setLosers] = useState([]);
+
+  useEffect(() => {
+    fetch("/topGainerAndLoser.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setGainers(data.top_gainers);
+        setLosers(data.top_losers);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   if (gainers.length === 0 || losers.length === 0)
     return <p className="text-xl font-bold text-center">Loading data...</p>;
-
-  const gainersData = gainers.slice(0, 5).map((stock) => ({
-    name: stock.ticker,
-    change: parseFloat(stock.change_percentage.replace("%", "")),
-  }));
-
-  const losersData = losers.slice(0, 5).map((stock) => ({
-    name: stock.ticker,
-    change: parseFloat(stock.change_percentage.replace("%", "")),
-  }));
 
   return (
     <Box sx={{ maxWidth: "1200px", mx: "auto", p: 3 }}>
@@ -32,16 +35,16 @@ const Dashboard = ({ gainers, losers }) => {
             height={300}
             series={[
               {
-                data: gainersData.map(stock => stock.change),
+                data: gainers.map(stock => stock.change),
                 label: "Top Gainers",
                 color: "rgb(85,205,49)", 
               },
             ]}
-            xAxis={[{ scaleType: "band", data: gainersData.map(stock => stock.name) }]}
+            xAxis={[{ scaleType: "band", data: gainers.map(stock => stock.symbol) }]}
           />
         </Paper>
 
-        <Paper sx={{ width: "48%", p: 3 }}>
+        <Paper sx={{ width: "48%", p: 6 }}>
           <Typography variant="h6" fontWeight="bold" sx={{ color: "rgb(177,39,29)", mb: 2 }}>
             Top Losers
           </Typography>
@@ -50,12 +53,12 @@ const Dashboard = ({ gainers, losers }) => {
             height={300}
             series={[
               {
-                data: losersData.map(stock => stock.change),
+                data: losers.map(stock => stock.change),
                 label: "Top Losers",
                 color: "rgb(177,39,29)", 
               },
             ]}
-            xAxis={[{ scaleType: "band", data: losersData.map(stock => stock.name) }]}
+            xAxis={[{ scaleType: "band", data: losers.map(stock => stock.symbol) }]}
           />
         </Paper>
       </Box>
